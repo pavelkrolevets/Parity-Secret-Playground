@@ -1,14 +1,12 @@
-# Parity Secret Store playground
+# Parity Secret Store playground (working non blocking secret store)
 
 We really appreciated the ease with which one could set up a [POA network](https://github.com/orbita-center/parity-poa-playground), and decided to build on top of it SecretStore support as the Parity tutorials seemed to be oriented more towards DevOps rather than blockchain developers.
 
 This repository creates all the node configurations required to perform secret transactions on a Parity network.
 
-Just run: `bash setup.sh`
-
-We also recompiled the Parity binaries in docker and offer a separate CI/CD to reduce the possibility of encountering more bugs (due to user permissions). There is also a SecretStore tag which is used in the docker-compose, as building yourself takes a long time:
-
-https://github.com/Kryha/parity-docker
+Run: 
+   1. `bash setup.sh` It will create containers with secret store and clients, then stop them.
+   2. `docker restart $(docker ps -q)` to restart created containers.
 
 The current version follows the Parity tutorials for SecretStore and Private transactions:
 

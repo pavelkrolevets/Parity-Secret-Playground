@@ -22,7 +22,7 @@ do
     cp parity/config/secret/ss$i.bak.toml ${loc[$i]}
 
     # create secret accounts
-    ss[$i]=$(docker run --rm -i -v $PWD/parity/config:/parity/config kryha/parity:secretstore --config ${loc[$i]} account new)
+    ss[$i]=$(docker run --rm -i -v $PWD/parity/config:/parity/config pavelkrolevets/parity-secert-store:fix_ss_blocking_wait --config ${loc[$i]} account new)
 
     # cutting the 0x 
     ssx[$i]=$(echo ${ss[$i]}|cut -d "x" -f 2)
@@ -48,8 +48,9 @@ do
     cp parity/config/$i.bak.toml ${loc[$i]}
     
     # create accounts
-    mm[$i]=$(docker run --rm -i -v $PWD/parity/config:/parity/config kryha/parity:beta --config ${loc[$i]} account new)
+    mm[$i]=$(docker run --rm -i -v $PWD/parity/config:/parity/config pavelkrolevets/parity-secert-store:beta --config ${loc[$i]} account new)
 
+    # grep enode
     # grep enode
     mmlog[$i]=$(timeout 10s docker-compose up $i)
     mmE[$i]=$(echo "${mmlog[$i]}"|grep "Public node URL:"|cut -d "/" -f 3)

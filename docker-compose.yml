@@ -2,7 +2,7 @@ version: '3'
 services:
   
   alice:
-    image: kryha/parity:beta
+    image: pavelkrolevets/parity-secert-store:beta
     command:
       --config /parity/config/alice.toml
       --unsafe-expose
@@ -18,7 +18,7 @@ services:
 
 
   bob:
-    image: kryha/parity:beta
+    image: pavelkrolevets/parity-secert-store:beta
     command: --config /parity/config/bob.toml
       --unsafe-expose
     volumes:
@@ -31,7 +31,7 @@ services:
 
 
   charlie:
-    image: kryha/parity:beta
+    image: pavelkrolevets/parity-secert-store:beta
     command: --config /parity/config/charlie.toml
       --unsafe-expose
     volumes:
@@ -43,7 +43,7 @@ services:
           ipv4_address: '10.1.0.13'
 
   ss1:
-    image: kryha/parity:secretstore
+    image: pavelkrolevets/parity-secert-store:fix_ss_blocking_wait
     command:
       --config /parity/config/secret/ss1.toml
       --ws-interface 0.0.0.0
@@ -57,7 +57,7 @@ services:
           ipv4_address: '10.1.0.21'
 
   ss2:
-    image: kryha/parity:secretstore
+    image: pavelkrolevets/parity-secert-store:fix_ss_blocking_wait
     command:
       --config /parity/config/secret/ss2.toml
       --ws-interface 0.0.0.0
@@ -69,7 +69,7 @@ services:
           ipv4_address: '10.1.0.22'
 
   ss3:
-    image: kryha/parity:secretstore
+    image: pavelkrolevets/parity-secert-store:fix_ss_blocking_wait
     command:
       --config /parity/config/secret/ss3.toml
       --ws-interface 0.0.0.0
