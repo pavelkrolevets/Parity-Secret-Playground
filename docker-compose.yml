@@ -16,7 +16,6 @@ services:
       eth-net:
           ipv4_address: '10.1.0.11'
 
-
   bob:
     image: pavelkrolevets/parity-secert-store:beta
     command: --config /parity/config/bob.toml
@@ -25,7 +24,7 @@ services:
       - ./parity/config:/parity/config
     ports:
       - 8544:8545
-    networks: 
+    networks:
       eth-net:
           ipv4_address: '10.1.0.12'
 
@@ -38,7 +37,7 @@ services:
       - ./parity/config:/parity/config
     ports:
       - 8543:8545
-    networks: 
+    networks:
       eth-net:
           ipv4_address: '10.1.0.13'
 

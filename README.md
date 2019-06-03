@@ -6,7 +6,7 @@ This repository creates all the node configurations required to perform secret t
 
 Run: 
    1. `bash setup.sh` It will create containers with secret store and clients, then stop them.
-   2. `docker restart $(docker ps -q)` to restart created containers.
+   2. `docker-compose up -d` to start created containers with confis.
 
 The current version follows the Parity tutorials for SecretStore and Private transactions:
 

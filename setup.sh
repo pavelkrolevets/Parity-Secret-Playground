@@ -30,13 +30,11 @@ do
     # replacing dummy variables with accounts
     sed -i '' -e  s,"accountx","${ssx[$i]}",g -e "/self_secret/s/^#//g" ${loc[$i]}
 
-    # grabbing the enode and server public key from the logs
-
+    # grabbing the enode and server public key from the log
     sslog[$i]=$(timeout 10s docker-compose up ss$i)
     ssp[$i]=$(echo "${sslog[$i]}"|grep "SecretStore node:"|cut -d "x" -f 2)
     ssE[$i]=$(echo "${sslog[$i]}"|grep "Public node URL:"|cut -d "/" -f 3)
     docker kill $(docker ps -q)
-
 done
 
 # setup alice bob and charlie
@@ -50,7 +48,6 @@ do
     # create accounts
     mm[$i]=$(docker run --rm -i -v $PWD/parity/config:/parity/config pavelkrolevets/parity-secert-store:beta --config ${loc[$i]} account new)
 
-    # grep enode
     # grep enode
     mmlog[$i]=$(timeout 10s docker-compose up $i)
     mmE[$i]=$(echo "${mmlog[$i]}"|grep "Public node URL:"|cut -d "/" -f 3)
@@ -66,8 +63,8 @@ do
                 -e "/account/s/^#//g"       -e "/unlock/s/^#//g" \
                 -e "/bootnodes/s/^#//g"     -e "/nodes/s/^#//g" \
                 -e "s,accountx,${mm[$i]},g" ${loc[$i]}
-                # echo $i
-                # echo ${loc[$i]}
+                echo $i
+                echo ${loc[$i]}
     
     for j in alice bob charlie 1 2 3;
     do

@@ -8,13 +8,13 @@ DOC=$(echo mySecretDocument | sha256sum| awk '{ print $1 }')
 green=`tput setaf 2`
 reset=`tput sgr0`
 
-cp contracts/example.sol contracts/contract.sol
+#cp "contracts/pangu_grantPermission.sol" "contracts/contract.sol"
 
-sed -i '' -e s,alicer,$alice,g -e s,bobr,$bob,g contracts/contract.sol
+#sed -i '' -e s,alicer,$alice,g -e s,bobr,$bob,g /contracts/pangu_grantPermission.sol
 
 # Compile acl contract
 
-docker run -v $PWD/contracts:/solidity ethereum/solc:0.4.24 --bin -o . contract.sol --overwrite
+docker run -v $PWD/contracts:/solidity ethereum/solc:0.5.3 --bin -o . pangu_grantPermission.sol --overwrite
 
 docker-compose up -d alice bob charlie ss1 ss2 ss3
 sleep 10
