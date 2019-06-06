@@ -8,13 +8,13 @@ DOC=$(echo mySecretDocument | sha256sum| awk '{ print $1 }')
 green=`tput setaf 2`
 reset=`tput sgr0`
 
-#cp "contracts/pangu_grantPermission.sol" "contracts/contract.sol"
+#cp "contracts/example.sol" "contracts/contract.sol"
 
-#sed -i '' -e s,alicer,$alice,g -e s,bobr,$bob,g /contracts/pangu_grantPermission.sol
+sed -i '' -e s,alicer,$alice,g -e s,bobr,$bob,g /contracts/contract.sol
 
 # Compile acl contract
 
-docker run -v $PWD/contracts:/solidity ethereum/solc:0.5.3 --bin -o . pangu_grantPermission.sol --overwrite
+docker run -v $PWD/contracts:/contracts ethereum/solc:0.4.24 --bin -o contracts contracts/contract.sol --overwrite
 
 docker-compose up -d alice bob charlie ss1 ss2 ss3
 sleep 10
@@ -32,6 +32,7 @@ echo "$SSSKEY">SSSkey.txt
 sleep 3
 
 bytecode="0x$(cat contracts/SSPermissions.bin)"
+echo -e "Contract bytecode ${bytecode}"
 
 printf "Compose contract create\n"
 
@@ -42,7 +43,6 @@ NONCE=$(echo $COMPOSE | jq .nonce)
 sleep 2
 
 printf  "Sign contract\n"
-
 SIGNED=$(curl -s --data '{"method":"personal_signTransaction","params":[{"condition":null,"data":"'$bytecode'","from":"'$alice'","gas":'$GAS',"gasPrice":"0x0","nonce":'$NONCE',"to":null,"value":"0x0"},"'$PASSWORD'"],"id":1,"jsonrpc":"2.0"}' -H "Content-Type: application/json" -X POST localhost:8545 | jq .result)
 CONTRACTRAW=$(echo $SIGNED | jq .raw)
 
@@ -60,6 +60,7 @@ ADDRESS=$(curl -s --data '{"method":"eth_getTransactionReceipt","params":['$RESU
 
 ADDRESSx=$(echo $ADDRESS|cut -d "x" -f 2)
 
+echo -e "ADDRESSx ${ADDRESSx}"
 # insert contract address in ss nodes
 
 docker kill $(docker ps -q)
