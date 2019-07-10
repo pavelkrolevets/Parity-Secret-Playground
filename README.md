@@ -1,6 +1,6 @@
-# Parity Secret Store playground (working non blocking secret store)
+# Parity Secret Store playground
 
-We really appreciated the ease with which one could set up a [POA network](https://github.com/orbita-center/parity-poa-playground), and decided to build on top of it SecretStore support as the Parity tutorials seemed to be oriented more towards DevOps rather than blockchain developers.
+This a fix for [Kryha](https://github.com/Kryha/Parity-Secret-Playground). Docker images were recreated. Parity Secret Store works smooth now.
 
 This repository creates all the node configurations required to perform secret transactions on a Parity network.
 
